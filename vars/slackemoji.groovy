@@ -1,6 +1,3 @@
-
-#!/usr/bin/env groovy
-
 def call(String status = "success") {
     def emojis = status == "success" ?
                         [":v:", ":ok_hand:", ":clap:", ":man_dancing:", ":trollface:",
