@@ -6,8 +6,9 @@ def stopByPort(String port) {
     )
 }
 
-def saveVersion() {
-    exec("cat > version.txt << EOL "
+def saveVersion(String container) {
+    assert container != null
+    exec(container, "cat > version.txt << EOL "
         + "JOB: ${env.JOB_NAME} \n"
         + "BUILD NUMBER: ${env.BUILD_NUMBER} \n"
         + "BRANCH: ${env.BRANCH_NAME} \n"
@@ -15,9 +16,10 @@ def saveVersion() {
     )
 }
 
-def exec(String command, String label = command) {
+def exec(String container, String command, String label = command) {
+    assert container != null
     assert command != null
     sh(label: label,
-        script: "docker exec -i ${env.DOCKER_CONTAINER} bash -c '${command}'"
+        script: "docker exec -i ${container} bash -c '${command}'"
     )
 }
