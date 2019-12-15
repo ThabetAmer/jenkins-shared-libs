@@ -1,13 +1,15 @@
 def getNameByPort(String port) {
     assert port != null
     return sh(label: 'Get container ID by port',
+                returnStdout: true,
                 script: "docker ps --format '{{.Names}}\t {{.Ports}}' | grep ':${port}' | cut -f1")
 }
 
 def getImageName(String containerName) {
     assert containerName != null
     return sh(label: 'Get image name of container',
-                script: "docker inspect --format='{{.Config.Image}}' ${containerName} 2>/dev/null")
+                returnStdout: true,
+                script: "docker inspect --format='{{.Config.Image}}' ${containerName} 2>/dev/null || true")
 }
 
 def start(String containerName) {
