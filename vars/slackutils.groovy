@@ -1,10 +1,10 @@
-def send(String $channel, String $message, String $status = "success") {
-    assert $channel != null
-    assert $message != null
-    slackSend(channel: $channel,
-                iconEmoji: $status = "success" ? ':dancer:' : ':boom:',
-                color: $status = "success" ? 'good' : 'danger',
-                message:  $message + emoji($status)
+def send(String channel, String message, String status = "success") {
+    assert channel != null
+    assert message != null
+    slackSend(channel: channel,
+                iconEmoji: status == "success" ? ':dancer:' : ':boom:',
+                color: status == "success" ? 'good' : 'danger',
+                message: message + emoji(status)
             )
 }
 
