@@ -1,4 +1,14 @@
-def call(String status = "success") {
+def send(String $channel, String $message, String $status = "success") {
+    assert $channel != null
+    assert $message != null
+    slackSend(channel: $channel,
+                iconEmoji: $status = "success" ? ':dancer:' : ':boom:',
+                color: $status = "success" ? 'good' : 'danger',
+                message:  $message + emoji($status)
+            )
+}
+
+def emoji(String status = "success") {
     def emojis = status == "success" ?
                         [":v:", ":ok_hand:", ":clap:", ":man_dancing:", ":trollface:",
                         ":rocket:", ":ghost:", ":thumbsup:", ":tada:", ":confetti_ball:"]
