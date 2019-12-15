@@ -8,10 +8,10 @@ def stopByPort(String port) {
 
 def saveVersion() {
     exec("cat > version.txt << EOL "
-                + "JOB: ${env.JOB_NAME} \n"
-                + "BUILD NUMBER: ${env.BUILD_NUMBER} \n"
-                + "BRANCH: ${env.BRANCH_NAME} \n"
-                + "EOL", "Saving version logs on server")
+        + "JOB: ${env.JOB_NAME} \n"
+        + "BUILD NUMBER: ${env.BUILD_NUMBER} \n"
+        + "BRANCH: ${env.BRANCH_NAME} \n"
+        + "EOL", "Saving version logs on server"
     )
 }
 
