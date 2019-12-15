@@ -7,11 +7,11 @@ def stopByPort(String port) {
 }
 
 def saveVersion() {
-    sh(label: 'Saving version logs on server',
-        script: "docker exec -i ${env.DOCKER_CONTAINER} bash -c 'cat  > version.txt << EOL "
+    exec("cat > version.txt << EOL "
                 + "JOB: ${env.JOB_NAME} \n"
                 + "BUILD NUMBER: ${env.BUILD_NUMBER} \n"
-                + "BRANCH: ${env.BRANCH_NAME}"
+                + "BRANCH: ${env.BRANCH_NAME} \n"
+                + "EOL", "Saving version logs on server")
     )
 }
 
