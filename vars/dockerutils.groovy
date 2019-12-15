@@ -1,4 +1,4 @@
-def stopByPort(int port) {
+def stopByPort(String port) {
     assert port != null
     sh(label: 'Stop Running Containers',
         script: "docker ps --format '{{.ID}}\t {{.Ports}}' | grep ':${port}' | \
