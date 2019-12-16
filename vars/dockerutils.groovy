@@ -30,9 +30,7 @@ def deleteImage(String imageName) {
 def terminate(String containerName) {
     assert containerName != null
     def imageName = getImageName(containerName)
-    def cmd = "docker stop ${containerName} && docker rm -f ${containerName}"
-    echo "cmd: ${cmd}"
-    sh(label: "Terminate container", script: cmd)
+    sh(label: "Terminate container", script: "docker stop ${containerName.trim()} && docker rm -f ${containerName.trim()}")
     deleteImage(imageName)
 }
 
