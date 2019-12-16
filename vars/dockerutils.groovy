@@ -2,14 +2,14 @@ def getNameByPort(String port) {
     assert port != null
     return sh(label: 'Get container ID by port',
                 returnStdout: true,
-                script: "docker ps --format '{{.Names}}\t {{.Ports}}' | grep ':${port}' | cut -f1")
+                script: "docker ps --format '{{.Names}}\t {{.Ports}}' | grep ':${port}' | cut -f1").trim()
 }
 
 def getImageName(String containerName) {
     assert containerName != null
     return sh(label: 'Get image name of container',
                 returnStdout: true,
-                script: "docker inspect --format='{{.Config.Image}}' ${containerName} 2>/dev/null || true")
+                script: "docker inspect --format='{{.Config.Image}}' ${containerName} 2>/dev/null || true").trim()
 }
 
 def start(String containerName) {
@@ -30,7 +30,7 @@ def deleteImage(String imageName) {
 def terminate(String containerName) {
     assert containerName != null
     def imageName = getImageName(containerName)
-    sh(label: "Terminate container", script: "docker stop ${containerName.trim()} && docker rm -f ${containerName.trim()}")
+    sh(label: "Terminate container", script: "docker stop ${containerName} && docker rm -f ${containerName}")
     deleteImage(imageName)
 }
 
