@@ -1,49 +1,49 @@
 def getNameByPort(String port) {
-    assert port != null
+    if (!port?.trim()) { return false }
     return sh(label: 'Get container ID by port',
                 returnStdout: true,
                 script: "docker ps --format '{{.Names}}\t {{.Ports}}' | grep ':${port}' | cut -f1").trim()
 }
 
 def getImageName(String containerName) {
-    assert containerName != null
+    if (!containerName?.trim()) { return false }
     return sh(label: 'Get image name of container',
                 returnStdout: true,
                 script: "docker inspect --format='{{.Config.Image}}' ${containerName} 2>/dev/null || true").trim()
 }
 
 def start(String containerName) {
-    assert containerName != null
+    if (!containerName?.trim()) { return false }
     sh(label: 'Start Container', script: "docker start ${containerName}")
 }
 
 def stop(String containerName) {
-    assert containerName != null
+    if (!containerName?.trim()) { return false }
     sh(label: 'Stop Running Container', script: "docker stop ${containerName}")
 }
 
 def deleteImage(String imageName) {
-    assert imageName != null
+    if (!imageName?.trim()) { return false }
     sh(label: "Delete image", script: "docker rmi -f ${imageName}")
 }
 
 def terminate(String containerName) {
-    assert containerName != null
+    if (!containerName?.trim()) { return false }
     def imageName = getImageName(containerName)
     sh(label: "Terminate container", script: "docker stop ${containerName} && docker rm -f ${containerName}")
     deleteImage(imageName)
 }
 
 def getCurrentState(String port) {
-    assert port != null
+    if (!port?.trim()) { return false }
     def containerName = getNameByPort(port)
     def imageName = getImageName(containerName)
     return [containerName, imageName]
 }
 
-def saveVersion(String container) {
-    assert container != null
-    exec(container, "cat > version.txt << EOL \n"
+def saveVersion(String containerName) {
+    if (!containerName?.trim()) { return false }
+    exec(containerName, "cat > version.txt << EOL \n"
         + "JOB: ${env.JOB_NAME} \n"
         + "BUILD NUMBER: ${env.BUILD_NUMBER} \n"
         + "BRANCH: ${env.BRANCH_NAME} \n"
@@ -52,8 +52,7 @@ def saveVersion(String container) {
 }
 
 // TODO: auto get container name from env
-def exec(String container, String command, String label = command) {
-    assert container != null
-    assert command != null
-    sh(label: label, script: "docker exec -i ${container} bash -c '${command}'")
+def exec(String containerName, String command, String label = command) {
+    if (!containerName?.trim() || !command?.trim()) { return false }
+    sh(label: label, script: "docker exec -i ${containerName} bash -c '${command}'")
 }
