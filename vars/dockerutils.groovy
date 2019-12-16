@@ -30,7 +30,7 @@ def deleteImage(String imageName) {
 def terminate(String containerName) {
     assert containerName != null
     def imageName = getImageName(containerName)
-    sh(label: "Terminate container", script: "docker stop ${containerName} && docker rm -f ${containerName}")
+    sh(label: "Terminate container", script: "docker stop ${containerName} \&\& docker rm -f ${containerName}")
     deleteImage(imageName)
 }
 
@@ -51,6 +51,7 @@ def saveVersion(String container) {
     )
 }
 
+// TODO: auto get container name from env
 def exec(String container, String command, String label = command) {
     assert container != null
     assert command != null
