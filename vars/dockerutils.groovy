@@ -41,12 +41,14 @@ def getCurrentState(String port) {
     return [containerName, imageName]
 }
 
-def saveVersion(String containerName) {
+def saveVersion(String containerName, String path = "public") {
     if (!containerName?.trim()) { return false }
-    exec(containerName, "cat > version.txt << EOL \n"
+    buildDate = new Date().format("dd/MM/yyyy HH:mm:ss")
+    exec(containerName, "cat > ${path}/version.txt << EOL \n"
         + "JOB: ${env.JOB_NAME} \n"
         + "BUILD NUMBER: ${env.BUILD_NUMBER} \n"
         + "BRANCH: ${env.BRANCH_NAME} \n"
+        + "BUILD DATE: ${buildDate}"
         + "EOL", "Saving version logs on server"
     )
 }
