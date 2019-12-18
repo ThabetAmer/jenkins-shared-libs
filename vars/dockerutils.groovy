@@ -48,7 +48,7 @@ def saveVersion(String containerName, String path = "public") {
         + "JOB: ${env.JOB_NAME} \n"
         + "BUILD NUMBER: ${env.BUILD_NUMBER} \n"
         + "BRANCH: ${env.BRANCH_NAME} \n"
-        + "BUILD DATE: ${buildDate}"
+        + "BUILD DATE: ${buildDate} \n"
         + "EOL", "Saving version logs on server"
     )
 }
