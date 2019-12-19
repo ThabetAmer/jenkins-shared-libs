@@ -13,8 +13,7 @@ def loadEnvvars(String path) {
             env.ENV = getENV()
             env.ENV_NAME = getEnvName()
             env.DOMAIN = getDomain()
-            env.BUILD_LABEL = getBuildLabel()
-            env.AGENT_LABEL = getAgentLabel()
+            env.AGENT_NAME = getDeployAgentName()
 
             env.IMAGE_TAG = "${BUILD_ID}"
             env.CONTAINER_NAME = "${DOCKER_IMAGE}_${IMAGE_TAG}"
@@ -46,14 +45,7 @@ def getEnvName() {
     return env.NAME_DEV
 }
 
-def getBuildLabel() {
-    if (env."AGENT_BUILD") {
-        return env."AGENT_BUILD"
-    }
-    return env.AGENT_DEV
-}
-
-def getAgentLabel() {
+def getDeployAgentName() {
     if (env."AGENT_${env.ENV}") {
         return env."AGENT_${env.ENV}"
     }
