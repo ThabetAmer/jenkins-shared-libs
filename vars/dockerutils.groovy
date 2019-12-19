@@ -41,6 +41,18 @@ def getCurrentState(String port) {
     return [containerName, imageName]
 }
 
+def getRecentLogs(String containerName) {
+    if (!containerName?.trim()) { return false }
+    return sh(label: 'Container logs', returnStdout: true,
+                script: "docker logs ${containerName}").trim()
+}
+
+def getStatus(String containerName) {
+    if (!containerName?.trim()) { return false }
+    return sh(label: 'Container Status', returnStdout: true, 
+                script:"docker inspect --format '{{.State.Status}}' ${containerName}").trim()
+}
+
 def saveVersion(String containerName, String path = "public") {
     if (!containerName?.trim()) { return false }
     buildDate = new Date().format("dd/MM/yyyy HH:mm:ss")
