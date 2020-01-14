@@ -1,4 +1,4 @@
-def loadEnvvars(String path) {
+def loadEnvvars(String path, Boolean autoDeployed = true) {
     try {
         node {
             checkout scm
@@ -10,25 +10,28 @@ def loadEnvvars(String path) {
                 env."${key}" = "${value}"
             }
 
-            env.ENV = getENV()
-            env.ENV_NAME = getEnvName()
-            env.DOMAIN = getDomain()
-            env.AGENT_NAME = getDeployAgentName()
-
-            env.IMAGE_TAG = "${BUILD_ID}"
-            env.CONTAINER_NAME = "${DOCKER_IMAGE}_${IMAGE_TAG}"
-            env.LOCAL_IMAGE_NAME = "${DOCKER_IMAGE}:${IMAGE_TAG}"
-            env.REGISTRY_IMAGE_NAME = "${DOCKER_REGISTRY}/${LOCAL_IMAGE_NAME}"
-            
-            env.DOCKER_REGISTRY_URL = "https://${DOCKER_REGISTRY}"
-            env.ECR_REGISTRY_CREDENTIAL = "ecr:${AWS_REGION}:${AWS_CREDENTIALS}"
-
+	        loadExtraVars()
             return envvars
         }
     }
     catch(err) {
         echo "ERROR: caught in loadEnvvars ${err}"
     }
+}
+
+def loadExtraVars() {
+    env.ENV = autoDeployed ? getENV() : "${params.ENV}"
+    env.ENV_NAME = env."NAME_${env.ENV}"
+    env.DOMAIN = getDomain()
+    env.AGENT_NAME = getDeployAgentName()
+
+    env.IMAGE_TAG = "${BUILD_ID}"
+    env.CONTAINER_NAME = "${DOCKER_IMAGE}_${IMAGE_TAG}"
+    env.LOCAL_IMAGE_NAME = "${DOCKER_IMAGE}:${IMAGE_TAG}"
+    env.REGISTRY_IMAGE_NAME = "${DOCKER_REGISTRY}/${LOCAL_IMAGE_NAME}"
+
+    env.DOCKER_REGISTRY_URL = "https://${DOCKER_REGISTRY}"
+    env.ECR_REGISTRY_CREDENTIAL = "ecr:${AWS_REGION}:${AWS_CREDENTIALS}"
 }
 
 def getENV() {
