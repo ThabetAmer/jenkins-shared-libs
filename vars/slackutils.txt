@@ -1,7 +1,8 @@
-Slack Notification Helper functions
+<p>Slack Notification Helper Functions<p>
 
-*send* to be used for triggered Slack notification
-Requires channel name, message text and the build status string (takes success for default)
-
-*emoji* returns random emoji from a pool per a provided status string (takes success for default)
-used as auxilliary function for <em>send</em> function.
+<p><strong>send</strong></br>
+To be used for triggered Slack notification
+Requires channel name, message text and the build status string (takes success for default)</p>
+<p><strong>emoji</strong></br>
+Returns random emoji from a pool per a provided status string (takes success for default)
+used as auxilliary function for the <em>send</em> function.</p>
