@@ -1,0 +1,31 @@
+<p>Utility Functions Handling Docker containers via CLI<p>
+
+<p><strong>getNameByPort</strong></br>
+Arguments: <em>port</em><p>
+
+<p><strong>getImageName</strong></br>
+Arguments: <em>containerName</em><p>
+
+<p><strong>start</strong></br>
+Arguments: <em>containerName</em><p>
+
+<p><strong>stop</strong></br>
+Arguments: <em>containerName</em><p>
+
+<p><strong>deleteImage</strong></br>
+Arguments: <em>imageName</em><p>
+
+<p><strong>getCurrentState</strong></br>
+Arguments: <em>port</em><p>
+
+<p><strong>getRecentLogs</strong></br>
+Arguments: <em>containerName</em><p>
+
+<p><strong>getStatus</strong></br>
+Arguments: <em>containerName</em><p>
+
+<p><strong>saveVersion</strong></br>
+Arguments: <em>containerName</em>, <em>path</em><p>
+
+<p><strong>exec</strong></br>
+Arguments: <em>containerName</em>, <em>command</em>, <em>label</em><p>

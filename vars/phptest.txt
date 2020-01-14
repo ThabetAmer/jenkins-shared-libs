@@ -1,0 +1,13 @@
+<p>PHP-based Test Builds Helper Tools<p>
+
+<p><strong>phpLint</strong></br>
+Lints php files in workspace using php native command cli, excluding vendor folder and any other non-php file</p>
+
+<p><strong>unitTestComposer</strong></br>
+Performs unit testing using composer function, as part for Laravel framework</p>
+
+<p><strong>unitTest</strong></br>
+Performs unit testing using phpunit cli based on the phpunit-coverage.xml config file</p>
+
+<p><strong>publishHTML</strong></br>
+Creates HTML index file for the code coverage test results</p>

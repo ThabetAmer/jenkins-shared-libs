@@ -1,0 +1,22 @@
+<p>Utility Functions for General Purpose<p>
+
+<p><strong>loadEnvvars</strong></br>
+Reads envvars from a property file and load them into ENV</br>
+Arguments: <em>path</em> the property file path within the workspace.</br>
+<em>autoDeployed</em> a flag to read deploy vars based on branch name or from parameters - for manual builds (default true)</p>
+
+<p><strong>getENV</strong></br>
+Decides on ENV (eg. dev,stg,prod) based on the branch name, as mapped in the property file</p>
+
+<p><strong>getEnvName</strong></br>
+Returns ENV full name (eg. development, staging, production), as mapped in the property file</p>
+
+<p><strong>getDeployAgentName</strong></br>
+Returns agent name used for deployment, per ENV var, as mapped in the property file</p>
+
+<p><strong>getDomain</strong></br>
+Returns domain URL based on ENV var, as mapped in the property file</p>
+
+<p><strong>curlstatus</strong></br>
+Checks a URL and returns "success" if it's status code is 200</p>
+
